@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tài liệu PDF</title>
+    <style>
+        /* Loại bỏ khoảng trắng thừa để viewer tràn màn hình */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background-color: #525659; /* Màu nền xám giống trình đọc PDF */
+        }
+
+        .pdf-container {
+            width: 100%;
+            height: 100vh; /* Chiều cao 100% màn hình thiết bị */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="pdf-container">
+        <!-- 
+           THAY ĐỔI LINK Ở ĐÂY:
+           1. Lấy ID file Google Drive của bạn.
+           2. Thay vào đoạn [ID_FILE_CUA_BAN] bên dưới.
+           3. Giữ nguyên đuôi /preview để có chế độ xem tốt nhất.
+        -->
+        <iframe 
+            src="https://drive.google.com/file/d/1R0yUo6wIS51usUQetS67O9rrd6RYhZY5/view?usp=sharing" 
+            allow="autoplay">
+        </iframe>
+    </div>
+
+</body>
+</html>
