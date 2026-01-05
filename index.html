@@ -14,7 +14,7 @@
             overflow: hidden;
         }
 
-        /* --- Nút Menu (Hamburger Icon) --- */
+        /* --- Nút Menu (Hamburger Icon - Góc Trái) --- */
         .menu-toggle-btn {
             position: fixed;
             top: 15px;
@@ -37,6 +37,32 @@
 
         .menu-toggle-btn:hover {
             background-color: #34495e;
+            transform: scale(1.1);
+        }
+
+        /* --- Nút Tải xuống (Góc Phải) --- */
+        .download-btn {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 100;
+            background-color: rgba(44, 62, 80, 0.9);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            font-size: 22px;
+            transition: all 0.3s ease;
+            text-decoration: none; /* Loại bỏ gạch chân của thẻ a */
+        }
+
+        .download-btn:hover {
+            background-color: #27ae60; /* Màu xanh lá khi hover */
             transform: scale(1.1);
         }
 
@@ -144,10 +170,19 @@
 </head>
 <body>
 
-    <!-- Nút Menu Tròn -->
+    <!-- Nút Menu Tròn (Trái) -->
     <div class="menu-toggle-btn" onclick="openSidebar()" title="Mở danh sách">
         ☰
     </div>
+
+    <!-- Nút Tải xuống Tròn (Phải) -->
+    <a href="#" id="downloadBtn" class="download-btn" title="Tải tài liệu về máy" target="_blank">
+        <!-- Icon Material Design Download chuẩn Google -->
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#ffffff">
+            <path d="M0 0h24v24H0V0z" fill="none"/>
+            <path d="M19 9h-4V3H9v6H5l7 7 7-7zm-14 9h14v2H5z"/>
+        </svg>
+    </a>
 
     <!-- Lớp phủ đen để click ra ngoài thì đóng -->
     <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
@@ -174,7 +209,11 @@
         // ==========================================
         const documents = [
             {
-                title: "Tài liệu chính (Mặc định)",
+                title: "Báo cáo tài chính 2024",
+                id: "1R0yUo6wIS51usUQetS67O9rrd6RYhZY5"
+            },
+            {
+                title: "Báo cáo tài chính 2025",
                 id: "1R0yUo6wIS51usUQetS67O9rrd6RYhZY5"
             }
         ];
@@ -186,6 +225,7 @@
         const listContainer = document.getElementById('fileList');
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
+        const downloadBtn = document.getElementById('downloadBtn');
 
         // Hàm mở menu
         function openSidebar() {
@@ -201,6 +241,11 @@
 
         function loadPDF(id) {
             const url = `https://drive.google.com/file/d/${id}/preview`;
+            
+            // Cập nhật link tải xuống cho nút Download
+            // Link tải trực tiếp của Google: .../uc?export=download&id=...
+            downloadBtn.href = `https://drive.google.com/uc?export=download&id=${id}`;
+
             // Chỉ reload nếu ID khác (để tránh nháy màn hình không cần thiết)
             if (!viewer.src.includes(id)) {
                 viewer.src = url;
