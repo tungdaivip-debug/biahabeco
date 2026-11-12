@@ -1,300 +1,242 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thư viện Tài liệu</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #525659; /* Màu nền xám đậm chuẩn PDF */
-            overflow: hidden;
-        }
-
-        /* --- Nút Menu (Hamburger Icon - Góc Trái) --- */
-        .menu-toggle-btn {
-            position: fixed;
-            top: 15px;
-            left: 15px;
-            z-index: 100; /* Luôn nổi trên cùng */
-            background-color: rgba(44, 62, 80, 0.9);
-            color: white;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            font-size: 22px;
-            transition: all 0.3s ease;
-            user-select: none;
-        }
-
-        .menu-toggle-btn:hover {
-            background-color: #34495e;
-            transform: scale(1.1);
-        }
-
-        /* --- Nút Tải xuống (Góc Phải) --- */
-        .download-btn {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            z-index: 100;
-            background-color: rgba(44, 62, 80, 0.9);
-            color: white;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            font-size: 22px;
-            transition: all 0.3s ease;
-            text-decoration: none; /* Loại bỏ gạch chân của thẻ a */
-        }
-
-        .download-btn:hover {
-            background-color: #27ae60; /* Màu xanh lá khi hover */
-            transform: scale(1.1);
-        }
-
-        /* --- Lớp phủ mờ (khi mở menu) --- */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 150;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease;
-        }
-
-        .overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* --- Sidebar (Danh sách trượt) --- */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: -280px; /* Ẩn sang trái mặc định */
-            width: 280px; /* Kích thước gọn gàng */
-            height: 100%;
-            background-color: #ffffff;
-            box-shadow: 2px 0 15px rgba(0,0,0,0.2);
-            display: flex;
-            flex-direction: column;
-            transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 200;
-        }
-
-        .sidebar.active {
-            left: 0; /* Trượt ra */
-        }
-
-        .sidebar-header {
-            padding: 20px;
-            background-color: #2c3e50;
-            color: white;
-            font-weight: bold;
-            font-size: 1.1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .close-btn {
-            cursor: pointer;
-            font-size: 24px;
-            line-height: 1;
-            opacity: 0.8;
-            padding: 0 5px;
-        }
-        .close-btn:hover { opacity: 1; }
-
-        .file-list {
-            flex: 1;
-            overflow-y: auto;
-            padding: 0;
-            list-style: none;
-            margin: 0;
-        }
-
-        .file-item {
-            padding: 15px 20px;
-            cursor: pointer;
-            border-bottom: 1px solid #f1f1f1;
-            font-size: 14px;
-            color: #333;
-            display: flex;
-            align-items: center;
-            transition: background 0.2s;
-        }
-
-        .file-item:hover {
-            background-color: #f8f9fa;
-        }
-
-        .file-item.active {
-            background-color: #e3f2fd;
-            color: #1976d2;
-            border-left: 4px solid #1976d2;
-            font-weight: 500;
-        }
-
-        /* --- Khung hiển thị PDF --- */
-        .main-content {
-            width: 100%;
-            height: 100vh;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#101a2c" />
+<title>1 trong 8 tỷ — Life Simulator</title>
+<style>
+:root{--bg:#0b1220;--panel:#121d30;--panel2:#17243a;--line:#253650;--muted:#91a2bb;--text:#eef4ff;--gold:#e9bd70;--teal:#65d2c0;--red:#ff7d83;--blue:#83b7ff;--shadow:0 18px 60px rgba(0,0,0,.28)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 20% -10%,#20395a 0,transparent 38%),radial-gradient(ellipse at 90% 5%,#213047 0,transparent 30%),var(--bg);color:var(--text);font:15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;min-height:100vh}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.4;cursor:not-allowed}.hidden{display:none!important}.app{max-width:1440px;margin:auto;padding:22px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:22px}.brand{display:flex;align-items:center;gap:12px}.brand-mark{width:44px;height:44px;border-radius:14px;background:linear-gradient(145deg,#e9bd70,#c78b4b);display:grid;place-items:center;color:#142033;font-weight:900;font-size:17px;box-shadow:0 8px 25px #e9bd702b}.brand h1{font-size:17px;margin:0;letter-spacing:.12em}.brand small{display:block;color:var(--muted);font-size:11px;letter-spacing:.2em}.top-actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid var(--line);background:#1a2941;color:var(--text);padding:10px 14px;border-radius:11px;font-weight:650;transition:.18s}.btn:hover{transform:translateY(-1px);border-color:#547196;background:#213550}.btn.primary{background:linear-gradient(135deg,#e9bd70,#c98c4f);color:#172033;border:0}.btn.ghost{background:transparent}.btn.danger{border-color:#703c48;color:#ffb2b6}.btn.small{padding:7px 10px;font-size:12px}.eyebrow{color:var(--gold);text-transform:uppercase;letter-spacing:.19em;font-size:10px;font-weight:800}.muted{color:var(--muted)}.tiny{font-size:12px}.hero{position:relative;overflow:hidden;border:1px solid #354b67;border-radius:24px;padding:42px;background:linear-gradient(112deg,rgba(17,31,51,.98),rgba(22,39,61,.89)),radial-gradient(circle at 80% 50%,#4a6e85,transparent 45%);box-shadow:var(--shadow)}.hero:after{content:"";position:absolute;width:360px;height:360px;border-radius:50%;border:1px solid #ffffff14;right:-80px;top:-145px;box-shadow:0 0 0 35px #ffffff08,0 0 0 75px #ffffff05}.hero h2{font-size:clamp(32px,5vw,58px);line-height:1.04;max-width:760px;margin:12px 0}.hero p{max-width:660px;color:#bac8db;font-size:16px}.hero .hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.pill{display:inline-flex;align-items:center;gap:7px;border:1px solid #39516e;background:#172942;color:#c6d5e9;border-radius:30px;padding:7px 11px;font-size:12px}.grid{display:grid;gap:16px}.setup-grid{grid-template-columns:1.15fr .85fr;margin-top:18px}.panel{background:linear-gradient(180deg,rgba(20,32,51,.97),rgba(16,27,44,.97));border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow)}.panel h3{margin:0 0 14px;font-size:16px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:12px;color:#aebed2;font-weight:700}.field input,.field select,.field textarea{width:100%;background:#0c1728;border:1px solid #30435e;color:var(--text);padding:11px 12px;border-radius:10px;outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:#83b7ff;box-shadow:0 0 0 3px #83b7ff18}.field textarea{min-height:80px;resize:vertical}.hint{font-size:11px;color:var(--muted)}.radio-row{display:flex;gap:8px;flex-wrap:wrap}.radio-card{display:flex;align-items:center;gap:7px;padding:9px 11px;border:1px solid #30435e;background:#0e1a2d;border-radius:10px;font-size:12px;cursor:pointer}.radio-card input{accent-color:var(--gold)}.country-preview{border:1px solid #30435e;background:linear-gradient(145deg,#162941,#101b2d);padding:18px;border-radius:14px;min-height:140px}.country-preview .flag{font-size:38px}.country-preview strong{font-size:18px;display:block}.country-preview p{margin:6px 0 0;color:var(--muted);font-size:12px}.setup-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:20px}.feature-list{display:grid;gap:12px}.feature{display:flex;gap:12px;align-items:flex-start}.feature-icon{width:36px;height:36px;flex:0 0 auto;border-radius:11px;background:#203550;color:var(--gold);display:grid;place-items:center;font-size:17px}.feature b{display:block;font-size:13px}.feature span{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+/* game */
+.game-layout{display:grid;grid-template-columns:260px minmax(0,1fr);gap:16px}.sidebar{align-self:start;position:sticky;top:12px;display:grid;gap:12px}.profile-card{padding:17px}.avatar{width:58px;height:58px;border-radius:18px;background:linear-gradient(145deg,#345473,#1e3049);display:grid;place-items:center;font-size:27px;margin-bottom:12px}.profile-card h2{font-size:17px;margin:0}.profile-card .sub{color:var(--muted);font-size:11px}.date-line{font-size:12px;color:var(--gold);margin-top:12px}.nav{display:grid;gap:5px}.nav button{background:transparent;border:1px solid transparent;color:#a9bad0;text-align:left;padding:10px 12px;border-radius:10px;font-size:13px}.nav button:hover,.nav button.active{background:#1b2c44;color:#fff;border-color:#304762}.nav button span{display:inline-block;width:24px}.main-content{min-width:0}.status-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}.metric{background:#142137;border:1px solid var(--line);border-radius:13px;padding:12px}.metric .k{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}.metric .v{font-size:19px;font-weight:800;margin-top:3px}.metric .d{font-size:10px;color:var(--muted)}.tab-panel{display:none}.tab-panel.active{display:block}.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:14px}.section-head h2{margin:0;font-size:22px}.section-head p{margin:3px 0 0;color:var(--muted);font-size:12px}.overview-grid{grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr)}.event-card{border:1px solid #4b5c68;background:linear-gradient(135deg,#1c3047,#172437);border-radius:17px;padding:20px;margin-bottom:14px}.event-top{display:flex;justify-content:space-between;gap:10px;align-items:center}.event-card h3{font-size:19px;margin:10px 0 7px}.event-card p{color:#c2d0e0;margin:0 0 16px;font-size:13px}.choices{display:grid;grid-template-columns:1fr 1fr;gap:8px}.choice{background:#233a54;border:1px solid #44607e;border-radius:11px;padding:11px;text-align:left;color:#f0f5ff;font-size:12px}.choice:hover{background:#2d4967;border-color:#83b7ff}.choice small{display:block;color:#9fb2c9;margin-top:4px;font-size:10px}.action-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.action-card{padding:13px;border-radius:12px;background:#101d30;border:1px solid #2d405a;text-align:left;color:var(--text)}.action-card:hover{border-color:#7896b9;background:#172943}.action-card b{display:block;font-size:12px}.action-card span{display:block;color:var(--muted);font-size:10px;margin-top:3px}.stat-list{display:grid;gap:12px}.stat-row{display:grid;grid-template-columns:84px 1fr 30px;gap:9px;align-items:center;font-size:11px}.bar{height:7px;background:#293a51;border-radius:10px;overflow:hidden}.bar i{display:block;height:100%;border-radius:10px;background:linear-gradient(90deg,#5bc7ba,#9bd8bc)}.info-list{display:grid;gap:0}.info-row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #253650;font-size:12px}.info-row:last-child{border:0}.info-row span:first-child{color:var(--muted)}.info-row strong{text-align:right}.two-col{grid-template-columns:1fr 1fr}.card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.mini-card{padding:15px;border-radius:13px;border:1px solid #2c4059;background:#111f33}.mini-card h4{margin:0 0 6px;font-size:13px}.mini-card p{margin:0;color:var(--muted);font-size:11px}.career-level{display:flex;gap:5px;margin:13px 0}.career-level i{height:6px;flex:1;border-radius:5px;background:#2b405b}.career-level i.on{background:var(--gold)}.feed{display:grid;gap:9px}.feed-item{padding:12px 13px;border-radius:11px;border:1px solid #263a54;background:#101d30}.feed-item time{font-size:10px;color:var(--gold)}.feed-item p{margin:4px 0 0;font-size:12px;color:#c2cede}.badge{font-size:10px;padding:4px 7px;border-radius:20px;background:#253b56;color:#b9d6fa}.badge.good{background:#153e3a;color:#82dece}.badge.warn{background:#493820;color:#ffd28a}.badge.bad{background:#4d2933;color:#ffabb2}.empty{padding:30px;text-align:center;color:var(--muted);border:1px dashed #38506d;border-radius:13px}.footer-note{margin-top:14px;font-size:10px;color:#7588a3;text-align:center}.toast{position:fixed;right:20px;bottom:20px;background:#233b53;border:1px solid #6685a5;color:white;padding:12px 16px;border-radius:12px;box-shadow:var(--shadow);z-index:20;max-width:340px;animation:slide .2s ease}@keyframes slide{from{transform:translateY(10px);opacity:0}to{transform:translateY(0);opacity:1}}.modal-backdrop{position:fixed;inset:0;background:#050a12bf;display:grid;place-items:center;padding:20px;z-index:30}.modal{width:min(560px,100%);background:#142239;border:1px solid #405674;border-radius:18px;padding:22px;box-shadow:var(--shadow)}.modal h3{margin:0 0 8px}.modal p{color:#b8c8dc;font-size:13px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+@media(max-width:900px){.setup-grid{grid-template-columns:1fr}.game-layout{grid-template-columns:1fr}.sidebar{position:static;grid-template-columns:1fr}.nav{grid-template-columns:repeat(3,1fr)}.nav button{text-align:center;padding:8px 5px}.nav button span{width:auto;margin-right:4px}.overview-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.app{padding:12px}.hero{padding:25px 20px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.status-strip{grid-template-columns:repeat(2,1fr)}.choices,.action-grid,.two-col,.card-grid{grid-template-columns:1fr}.topbar{align-items:flex-start}.top-actions{justify-content:flex-end}.brand h1{font-size:14px}.section-head{align-items:flex-start;flex-direction:column}}
+</style>
 </head>
 <body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand"><div class="brand-mark">8B</div><div><h1>1 TRONG 8 TỶ</h1><small>LIFE SIMULATOR</small></div></div>
+    <div class="top-actions" id="topActions"><button class="btn ghost small" id="howBtn">Hướng dẫn</button><button class="btn small" id="loadBtn">Tải tiến trình</button></div>
+  </header>
 
-    <!-- Nút Menu Tròn (Trái) -->
-    <div class="menu-toggle-btn" onclick="openSidebar()" title="Mở danh sách">
-        ☰
+  <section id="setupScreen">
+    <div class="hero">
+      <div class="eyebrow">Một cuộc đời trong hàng tỷ số phận</div>
+      <h2>Không ai sinh ra đã biết mình sẽ trở thành ai.</h2>
+      <p>Bắt đầu từ một gia đình, một quốc gia và những điều kiện không do bạn lựa chọn. Phần còn lại được định hình bởi quyết định, cơ hội, năng lực và cả những biến cố bất ngờ.</p>
+      <div class="hero-meta"><span class="pill">◈ Thế giới mô phỏng</span><span class="pill">◇ Sự nghiệp & quyền lực</span><span class="pill">◎ Tài chính & gia đình</span><span class="pill">⌁ Lưu tự động trên máy</span></div>
     </div>
-
-    <!-- Nút Tải xuống Tròn (Phải) -->
-    <a href="#" id="downloadBtn" class="download-btn" title="Tải tài liệu về máy" target="_blank">
-        <!-- Icon Material Design Download chuẩn Google -->
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#ffffff">
-            <path d="M0 0h24v24H0V0z" fill="none"/>
-            <path d="M19 9h-4V3H9v6H5l7 7 7-7zm-14 9h14v2H5z"/>
-        </svg>
-    </a>
-
-    <!-- Lớp phủ đen để click ra ngoài thì đóng -->
-    <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
-
-    <!-- Sidebar Danh sách -->
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            Danh sách tài liệu
-            <span class="close-btn" onclick="closeSidebar()">&times;</span>
+    <div class="grid setup-grid">
+      <div class="panel">
+        <div class="eyebrow">Khởi tạo nhân vật</div><h3 style="font-size:20px;margin-top:5px">Chọn điểm bắt đầu cuộc đời</h3>
+        <div class="form-grid">
+          <div class="field"><label for="country">Quốc gia sinh ra</label><select id="country"></select><div class="hint">Ảnh hưởng đến văn hóa, tiền tệ, hệ thống giáo dục và con đường sự nghiệp.</div></div>
+          <div class="field"><label for="city">Thành phố / khu vực</label><input id="city" placeholder="Để trống để hệ thống chọn ngẫu nhiên"></div>
+          <div class="field"><label for="startAge">Độ tuổi bắt đầu</label><select id="startAge"><option value="0">Từ khi sinh ra (0 tuổi)</option><option value="15">15 tuổi</option><option value="18" selected>18 tuổi</option><option value="22">22 tuổi</option><option value="30">30 tuổi</option></select></div>
+          <div class="field"><label for="gender">Giới tính</label><select id="gender"><option value="random">Ngẫu nhiên</option><option value="Nam">Nam</option><option value="Nữ">Nữ</option><option value="Khác">Khác / không xác định</option></select></div>
+          <div class="field"><label for="name">Tên nhân vật</label><input id="name" placeholder="Để trống để hệ thống tự đặt tên"></div>
+          <div class="field"><label for="origin">Hoàn cảnh gia đình</label><select id="origin"><option value="random">Ngẫu nhiên theo xã hội</option><option value="poor">Gia đình nghèo</option><option value="working">Gia đình lao động</option><option value="middle">Gia đình trung lưu</option><option value="rich">Gia đình giàu có</option><option value="powerful">Gia đình quyền thế, nhiều quan hệ</option></select></div>
+          <div class="field"><label for="difficulty">Độ khó</label><select id="difficulty"><option value="realistic" selected>Thực tế — không ưu ái người chơi</option><option value="normal">Bình thường — cân bằng</option><option value="hard">Khó — ít nguồn lực, cạnh tranh cao</option><option value="easy">Dễ — nhiều cơ hội hơn</option></select></div>
+          <div class="field"><label for="goal">Mục tiêu ban đầu</label><select id="goal"><option>Tự do phát triển cuộc đời</option><option>Trở thành tỷ phú, xây dựng tập đoàn</option><option>Trở thành quan chức cấp cao</option><option>Trở thành nhà lãnh đạo quốc gia</option><option>Trở thành người nổi tiếng và có ảnh hưởng</option><option>Xây dựng gia đình hạnh phúc</option><option>Chưa xác định</option></select></div>
+          <div class="field full"><label for="extra">Ghi chú thêm (không bắt buộc)</label><textarea id="extra" placeholder="Ví dụ: Muốn xuất thân bình thường, có cơ hội du học, theo đuổi chính trị hoặc khởi nghiệp từ hai bàn tay trắng..."></textarea></div>
         </div>
-        <ul class="file-list" id="fileList">
-            <!-- Javascript sẽ tự động điền danh sách vào đây -->
-        </ul>
+        <div class="setup-actions"><span class="hint">Có thể thay đổi mục tiêu trong quá trình chơi.</span><button class="btn primary" id="startBtn">Bắt đầu cuộc đời →</button></div>
+      </div>
+      <div class="panel">
+        <div class="eyebrow">Một thế giới đang vận hành</div><h3 style="font-size:20px;margin-top:5px">Những gì đang chờ bạn</h3>
+        <div class="country-preview" id="countryPreview"><div class="flag">🌏</div><strong>Chọn quốc gia của bạn</strong><p>Mỗi quốc gia có bối cảnh, mức sống, cơ hội và hệ thống xã hội riêng trong mô phỏng.</p></div>
+        <div class="feature-list" style="margin-top:18px">
+          <div class="feature"><div class="feature-icon">⌂</div><div><b>Cuộc đời có liên tục</b><span>Tuổi tác, sức khỏe, gia đình và thời gian thay đổi sau từng hành động.</span></div></div>
+          <div class="feature"><div class="feature-icon">▤</div><div><b>Nhiều con đường sự nghiệp</b><span>Làm thuê, kinh doanh, học thuật, chuyên môn, công vụ và ngoại giao.</span></div></div>
+          <div class="feature"><div class="feature-icon">♜</div><div><b>Thăng tiến quan chức</b><span>Thi tuyển, tích lũy thành tích, cạnh tranh, bổ nhiệm và chịu trách nhiệm.</span></div></div>
+          <div class="feature"><div class="feature-icon">◎</div><div><b>NPC có cuộc sống riêng</b><span>Đồng nghiệp, bạn bè, đối thủ và tổ chức thay đổi theo thời gian.</span></div></div>
+          <div class="feature"><div class="feature-icon">◷</div><div><b>Lưu tiến trình</b><span>Trạng thái game tự lưu trong trình duyệt hiện tại.</span></div></div>
+        </div>
+      </div>
     </div>
+    <div class="footer-note">Phiên bản web demo có thể chơi offline. Dữ liệu mô phỏng mang tính gameplay, không phải dự báo hoặc tư vấn pháp lý/tài chính.</div>
+  </section>
 
-    <!-- Khung hiển thị PDF -->
-    <div class="main-content">
-        <iframe id="pdfViewer" src="" allow="autoplay"></iframe>
+  <section id="gameScreen" class="hidden">
+    <div class="game-layout">
+      <aside class="sidebar">
+        <div class="panel profile-card"><div class="avatar" id="avatar">👤</div><h2 id="sideName">Nhân vật</h2><div class="sub" id="sideMeta">Tuổi · Quốc gia</div><div class="date-line" id="sideDate">Tháng 1, 2026</div></div>
+        <div class="panel"><div class="eyebrow" style="margin-bottom:9px">Điều hướng</div><nav class="nav" id="nav">
+          <button class="active" data-tab="overview"><span>⌂</span>Tổng quan</button><button data-tab="career"><span>▤</span>Sự nghiệp</button><button data-tab="finance"><span>◈</span>Tài chính</button><button data-tab="society"><span>♧</span>Quan hệ</button><button data-tab="world"><span>◎</span>Thế giới</button><button data-tab="history"><span>◷</span>Nhật ký</button>
+        </nav></div>
+        <div class="panel"><div class="eyebrow">Thao tác nhanh</div><div style="display:grid;gap:8px;margin-top:10px"><button class="btn small" id="saveBtn">Lưu tiến trình</button><button class="btn small" id="exportBtn">Xuất bản lưu (.json)</button><button class="btn danger small" id="restartBtn">Kết thúc / tạo đời mới</button></div></div>
+      </aside>
+      <main class="main-content">
+        <div class="status-strip" id="statusStrip"></div>
+        <section class="tab-panel active" id="tab-overview">
+          <div class="section-head"><div><div class="eyebrow">Cuộc sống hiện tại</div><h2>Tổng quan</h2><p id="overviewSub">Mỗi bước đi đều thay đổi tương lai.</p></div><span class="badge" id="difficultyBadge">Độ khó: Thực tế</span></div>
+          <div class="grid overview-grid">
+            <div>
+              <div class="event-card"><div class="event-top"><span class="eyebrow" id="eventType">SỰ KIỆN CUỘC ĐỜI</span><span class="badge" id="eventDate">Hiện tại</span></div><h3 id="eventTitle">Cuộc đời bắt đầu</h3><p id="eventText">Hãy chọn một hành động để bắt đầu viết nên câu chuyện của mình.</p><div class="choices" id="eventChoices"></div></div>
+              <div class="panel"><div class="section-head"><div><h3 style="margin:0">Hành động</h3><p>Chọn cách sử dụng thời gian của bạn.</p></div></div><div class="action-grid" id="actionGrid"></div></div>
+            </div>
+            <div class="grid" style="align-content:start">
+              <div class="panel"><h3>Chỉ số cá nhân</h3><div class="stat-list" id="statList"></div></div>
+              <div class="panel"><h3>Thông tin cuộc đời</h3><div class="info-list" id="lifeInfo"></div></div>
+            </div>
+          </div>
+        </section>
+        <section class="tab-panel" id="tab-career"><div class="section-head"><div><div class="eyebrow">Con đường phát triển</div><h2>Sự nghiệp & quyền lực</h2><p>Thăng tiến cần thời gian, năng lực, thành tích và cơ hội.</p></div></div><div class="grid two-col"><div class="panel" id="careerSummary"></div><div class="panel"><h3>Các hướng sự nghiệp</h3><div class="card-grid" id="careerPaths"></div></div></div><div class="panel" style="margin-top:14px"><h3>Hoạt động nghề nghiệp</h3><div class="action-grid" id="careerActions"></div></div></section>
+        <section class="tab-panel" id="tab-finance"><div class="section-head"><div><div class="eyebrow">Quản lý nguồn lực</div><h2>Tài chính & tài sản</h2><p>Thu nhập, chi phí, tài sản và nợ được theo dõi riêng.</p></div></div><div class="status-strip" id="financeMetrics"></div><div class="grid two-col"><div class="panel"><h3>Dòng tiền hàng tháng</h3><div class="info-list" id="cashflow"></div></div><div class="panel"><h3>Tài sản & nghĩa vụ</h3><div class="info-list" id="assets"></div></div></div><div class="panel" style="margin-top:14px"><h3>Quyết định tài chính</h3><div class="action-grid" id="financeActions"></div></div></section>
+        <section class="tab-panel" id="tab-society"><div class="section-head"><div><div class="eyebrow">Con người quanh bạn</div><h2>Quan hệ & gia đình</h2><p>Những người khác cũng có mục tiêu và cuộc sống riêng.</p></div></div><div class="grid two-col"><div class="panel"><h3>Gia đình</h3><div id="familyBox"></div></div><div class="panel"><h3>Mạng lưới quan hệ</h3><div id="peopleBox"></div></div></div><div class="panel" style="margin-top:14px"><h3>Hoạt động xã hội</h3><div class="action-grid" id="socialActions"></div></div></section>
+        <section class="tab-panel" id="tab-world"><div class="section-head"><div><div class="eyebrow">Bối cảnh bên ngoài</div><h2>Thế giới</h2><p>Một số thay đổi xã hội và kinh tế trong mô phỏng.</p></div></div><div class="grid two-col"><div class="panel"><h3>Quốc gia của bạn</h3><div id="countryBox"></div></div><div class="panel"><h3>Tình hình xã hội</h3><div id="worldBox"></div></div></div><div class="panel" style="margin-top:14px"><h3>Tin tức gần đây</h3><div class="feed" id="newsFeed"></div></div></section>
+        <section class="tab-panel" id="tab-history"><div class="section-head"><div><div class="eyebrow">Dấu mốc</div><h2>Nhật ký cuộc đời</h2><p>Lưu lại các quyết định và kết quả đã xảy ra.</p></div><button class="btn small" id="clearLogBtn">Xóa nhật ký hiển thị</button></div><div class="panel"><div class="feed" id="historyFeed"></div></div></section>
+        <div class="footer-note">1 TRONG 8 TỶ · LIFE SIMULATOR — Bản thử nghiệm chạy trực tiếp trên trình duyệt</div>
+      </main>
     </div>
-
-    <script>
-        // ==========================================
-        // CẤU HÌNH DANH SÁCH FILE CỦA BẠN
-        // ==========================================
-        const documents = [
-            {
-                title: "Báo cáo tài chính 2024",
-                id: "1R0yUo6wIS51usUQetS67O9rrd6RYhZY5"
-            },
-            {
-                title: "Báo cáo tài chính 2025",
-                id: "1Mcjk_MyaTmpOFSlXtTd_smeVSIJ9MtOw"
-            }
-        ];
-
-        // ==========================================
-        // XỬ LÝ GIAO DIỆN & LOGIC
-        // ==========================================
-        const viewer = document.getElementById('pdfViewer');
-        const listContainer = document.getElementById('fileList');
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('overlay');
-        const downloadBtn = document.getElementById('downloadBtn');
-
-        // Hàm mở menu
-        function openSidebar() {
-            sidebar.classList.add('active');
-            overlay.classList.add('active');
-        }
-
-        // Hàm đóng menu
-        function closeSidebar() {
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
-        }
-
-        function loadPDF(id) {
-            const url = `https://drive.google.com/file/d/${id}/preview`;
-            
-            // Cập nhật link tải xuống cho nút Download
-            // Link tải trực tiếp của Google: .../uc?export=download&id=...
-            downloadBtn.href = `https://drive.google.com/uc?export=download&id=${id}`;
-
-            // Chỉ reload nếu ID khác (để tránh nháy màn hình không cần thiết)
-            if (!viewer.src.includes(id)) {
-                viewer.src = url;
-            }
-
-            // Update URL browser
-            const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?id=' + id;
-            window.history.pushState({path: newUrl}, '', newUrl);
-
-            // Highlight item đang chọn
-            document.querySelectorAll('.file-item').forEach(item => {
-                item.classList.remove('active');
-                if(item.dataset.id === id) {
-                    item.classList.add('active');
-                }
-            });
-
-            // Tự động đóng menu sau khi chọn để user xem full màn hình
-            closeSidebar();
-        }
-
-        function renderList() {
-            listContainer.innerHTML = '';
-            documents.forEach(doc => {
-                const li = document.createElement('li');
-                li.className = 'file-item';
-                li.dataset.id = doc.id;
-                li.innerHTML = `<span>📄</span>&nbsp; ${doc.title}`;
-                
-                li.onclick = () => loadPDF(doc.id);
-                listContainer.appendChild(li);
-            });
-        }
-
-        function init() {
-            renderList();
-            const urlParams = new URLSearchParams(window.location.search);
-            const fileId = urlParams.get('id');
-
-            if (fileId) {
-                loadPDF(fileId);
-            } else if (documents.length > 0) {
-                // Load file đầu tiên nhưng KHÔNG đóng menu ngay (nếu muốn)
-                // Hoặc cứ load bình thường
-                loadPDF(documents[0].id);
-            }
-        }
-
-        init();
-    </script>
+  </section>
+</div>
+<div id="toastHost"></div><div id="modalHost"></div>
+<script>
+'use strict';
+const COUNTRIES = [
+{n:'Việt Nam',flag:'🇻🇳',code:'VND',locale:'vi-VN',cities:['Hà Nội','TP. Hồ Chí Minh','Đà Nẵng','Hải Phòng','Cần Thơ','Nam Định','Huế','Nha Trang'],currency:'đ',cost:1,base:8500000,context:'Nền kinh tế đang phát triển, cơ hội ở sản xuất, dịch vụ, công nghệ, thương mại và khu vực công.',publicLabel:'Công chức / viên chức'},
+{n:'Hoa Kỳ',flag:'🇺🇸',code:'USD',locale:'en-US',cities:['New York','Los Angeles','Chicago','Houston','Seattle','Boston','Austin','San Francisco'],currency:'$',cost:4.1,base:4200,context:'Thị trường lao động lớn, hệ sinh thái doanh nghiệp và nghiên cứu đa dạng; chi phí sống và cạnh tranh khác biệt theo bang.',publicLabel:'Public service / civil service'},
+{n:'Trung Quốc',flag:'🇨🇳',code:'CNY',locale:'zh-CN',cities:['Bắc Kinh','Thượng Hải','Thâm Quyến','Quảng Châu','Thành Đô','Hàng Châu','Vũ Hán'],currency:'¥',cost:1.8,base:9500,context:'Nền kinh tế quy mô lớn với sản xuất, công nghệ, thương mại và hệ thống hành chính nhiều tầng.',publicLabel:'Công vụ / hành chính'},
+{n:'Nhật Bản',flag:'🇯🇵',code:'JPY',locale:'ja-JP',cities:['Tokyo','Osaka','Kyoto','Yokohama','Nagoya','Fukuoka','Sapporo'],currency:'¥',cost:3.2,base:310000,context:'Môi trường công nghiệp, dịch vụ và công nghệ phát triển; chú trọng chuyên môn, quy trình và thâm niên.',publicLabel:'Công chức quốc gia / địa phương'},
+{n:'Hàn Quốc',flag:'🇰🇷',code:'KRW',locale:'ko-KR',cities:['Seoul','Busan','Incheon','Daegu','Daejeon','Gwangju'],currency:'₩',cost:3.1,base:3100000,context:'Thị trường cạnh tranh trong công nghệ, sản xuất, giải trí và dịch vụ; áp lực giáo dục và việc làm đáng kể.',publicLabel:'Công chức / khu vực công'},
+{n:'Vương quốc Anh',flag:'🇬🇧',code:'GBP',locale:'en-GB',cities:['London','Manchester','Birmingham','Edinburgh','Bristol','Leeds'],currency:'£',cost:3.8,base:2700,context:'Các ngành tài chính, dịch vụ chuyên môn, giáo dục và công nghệ có vai trò lớn.',publicLabel:'Civil service'},
+{n:'Đức',flag:'🇩🇪',code:'EUR',locale:'de-DE',cities:['Berlin','Munich','Hamburg','Frankfurt','Cologne','Stuttgart'],currency:'€',cost:3.2,base:3300,context:'Nền công nghiệp, kỹ thuật, nghiên cứu và hệ thống đào tạo nghề có vị trí quan trọng.',publicLabel:'Öffentlicher Dienst'},
+{n:'Pháp',flag:'🇫🇷',code:'EUR',locale:'fr-FR',cities:['Paris','Lyon','Marseille','Toulouse','Bordeaux','Lille'],currency:'€',cost:3.4,base:2900,context:'Kinh tế dịch vụ, công nghiệp, văn hóa và hành chính công; cơ hội tập trung ở nhiều đô thị lớn.',publicLabel:'Fonction publique'},
+{n:'Canada',flag:'🇨🇦',code:'CAD',locale:'en-CA',cities:['Toronto','Vancouver','Montreal','Ottawa','Calgary','Edmonton'],currency:'C$',cost:3.7,base:4700,context:'Thị trường đa văn hóa, tài nguyên, dịch vụ, công nghệ và khu vực công.',publicLabel:'Public service'},
+{n:'Australia',flag:'🇦🇺',code:'AUD',locale:'en-AU',cities:['Sydney','Melbourne','Brisbane','Perth','Adelaide','Canberra'],currency:'A$',cost:3.8,base:6000,context:'Kinh tế dịch vụ, tài nguyên, giáo dục và y tế; khoảng cách địa lý ảnh hưởng cơ hội.',publicLabel:'Australian Public Service'},
+{n:'Singapore',flag:'🇸🇬',code:'SGD',locale:'en-SG',cities:['Singapore'],currency:'S$',cost:4.3,base:4800,context:'Trung tâm thương mại, tài chính và logistics; chi phí nhà ở cao, thị trường nhỏ và cạnh tranh.',publicLabel:'Public Service'},
+{n:'Ấn Độ',flag:'🇮🇳',code:'INR',locale:'en-IN',cities:['New Delhi','Mumbai','Bengaluru','Hyderabad','Chennai','Pune'],currency:'₹',cost:1.2,base:52000,context:'Thị trường đông dân, công nghệ, dịch vụ, sản xuất và khu vực hành chính rộng lớn.',publicLabel:'Civil Services'},
+{n:'Brazil',flag:'🇧🇷',code:'BRL',locale:'pt-BR',cities:['São Paulo','Rio de Janeiro','Brasília','Salvador','Curitiba','Recife'],currency:'R$',cost:1.8,base:4800,context:'Nền kinh tế đa dạng về nông nghiệp, tài nguyên, sản xuất và dịch vụ; khác biệt vùng miền lớn.',publicLabel:'Serviço público'},
+{n:'Nga',flag:'🇷🇺',code:'RUB',locale:'ru-RU',cities:['Moscow','Saint Petersburg','Kazan','Novosibirsk','Yekaterinburg'],currency:'₽',cost:1.8,base:100000,context:'Kinh tế có thế mạnh tài nguyên, công nghiệp, khoa học và hệ thống hành chính liên bang.',publicLabel:'Государственная служба'},
+{n:'Indonesia',flag:'🇮🇩',code:'IDR',locale:'id-ID',cities:['Jakarta','Surabaya','Bandung','Medan','Yogyakarta','Denpasar'],currency:'Rp',cost:1.3,base:7000000,context:'Nền kinh tế quần đảo lớn, cơ hội trong thương mại, sản xuất, tài nguyên và dịch vụ.',publicLabel:'Aparatur Sipil Negara'},
+{n:'Thái Lan',flag:'🇹🇭',code:'THB',locale:'th-TH',cities:['Bangkok','Chiang Mai','Phuket','Pattaya','Khon Kaen'],currency:'฿',cost:1.8,base:26000,context:'Du lịch, sản xuất, logistics và dịch vụ là các lĩnh vực đáng chú ý.',publicLabel:'Civil service'},
+{n:'Malaysia',flag:'🇲🇾',code:'MYR',locale:'ms-MY',cities:['Kuala Lumpur','Penang','Johor Bahru','Kota Kinabalu','Kuching'],currency:'RM',cost:1.6,base:4200,context:'Kinh tế công nghiệp, dịch vụ, tài chính và thương mại khu vực.',publicLabel:'Perkhidmatan Awam'},
+{n:'Philippines',flag:'🇵🇭',code:'PHP',locale:'en-PH',cities:['Manila','Cebu City','Davao','Quezon City','Iloilo'],currency:'₱',cost:1.5,base:28000,context:'Dịch vụ, lao động quốc tế, thương mại và kinh tế đô thị phát triển không đồng đều.',publicLabel:'Civil Service'},
+{n:'UAE',flag:'🇦🇪',code:'AED',locale:'ar-AE',cities:['Dubai','Abu Dhabi','Sharjah','Ajman'],currency:'د.إ',cost:3.8,base:12500,context:'Kinh tế dịch vụ, năng lượng, logistics, hàng không và đầu tư quốc tế.',publicLabel:'Government sector'},
+{n:'Ả Rập Xê Út',flag:'🇸🇦',code:'SAR',locale:'ar-SA',cities:['Riyadh','Jeddah','Dammam','Mecca','Medina'],currency:'ر.س',cost:2.8,base:10500,context:'Kinh tế năng lượng đang đa dạng hóa, với các dự án hạ tầng, dịch vụ và công nghệ.',publicLabel:'Public sector'},
+{n:'Thụy Sĩ',flag:'🇨🇭',code:'CHF',locale:'de-CH',cities:['Zurich','Geneva','Basel','Bern','Lausanne'],currency:'CHF',cost:5,base:6500,context:'Thu nhập và chi phí sống cao; nổi bật về tài chính, dược phẩm, nghiên cứu và dịch vụ.',publicLabel:'Public administration'},
+{n:'Hà Lan',flag:'🇳🇱',code:'EUR',locale:'nl-NL',cities:['Amsterdam','Rotterdam','The Hague','Utrecht','Eindhoven'],currency:'€',cost:3.4,base:3300,context:'Thương mại, logistics, nông nghiệp công nghệ cao, thiết kế và dịch vụ chuyên môn.',publicLabel:'Civil service'},
+{n:'Mexico',flag:'🇲🇽',code:'MXN',locale:'es-MX',cities:['Mexico City','Guadalajara','Monterrey','Puebla','Tijuana'],currency:'MX$',cost:1.8,base:22000,context:'Sản xuất, thương mại, dịch vụ và liên kết chuỗi cung ứng Bắc Mỹ.',publicLabel:'Servicio público'},
+{n:'Nam Phi',flag:'🇿🇦',code:'ZAR',locale:'en-ZA',cities:['Johannesburg','Cape Town','Pretoria','Durban','Gqeberha'],currency:'R',cost:1.8,base:25000,context:'Kinh tế tài nguyên, tài chính và dịch vụ với chênh lệch xã hội đáng kể.',publicLabel:'Public service'},
+{n:'Thổ Nhĩ Kỳ',flag:'🇹🇷',code:'TRY',locale:'tr-TR',cities:['Istanbul','Ankara','Izmir','Bursa','Antalya'],currency:'₺',cost:1.8,base:42000,context:'Cầu nối thương mại khu vực, sản xuất, du lịch và dịch vụ.',publicLabel:'Kamu hizmeti'},
+{n:'New Zealand',flag:'🇳🇿',code:'NZD',locale:'en-NZ',cities:['Auckland','Wellington','Christchurch','Hamilton','Dunedin'],currency:'NZ$',cost:3.5,base:5200,context:'Nông nghiệp, dịch vụ, giáo dục và du lịch có vai trò quan trọng.',publicLabel:'Public Service'},
+{n:'Ý',flag:'🇮🇹',code:'EUR',locale:'it-IT',cities:['Rome','Milan','Naples','Turin','Bologna','Florence'],currency:'€',cost:3,base:2500,context:'Sản xuất, thiết kế, du lịch, thực phẩm và doanh nghiệp gia đình.',publicLabel:'Pubblica amministrazione'},
+{n:'Tây Ban Nha',flag:'🇪🇸',code:'EUR',locale:'es-ES',cities:['Madrid','Barcelona','Valencia','Seville','Bilbao'],currency:'€',cost:2.9,base:2400,context:'Dịch vụ, du lịch, năng lượng và các doanh nghiệp vừa và nhỏ.',publicLabel:'Función pública'},
+{n:'Sweden',flag:'🇸🇪',code:'SEK',locale:'sv-SE',cities:['Stockholm','Gothenburg','Malmö','Uppsala','Lund'],currency:'kr',cost:3.7,base:35000,context:'Công nghệ, công nghiệp, phúc lợi xã hội và đổi mới sáng tạo.',publicLabel:'Public administration'},
+{n:'Nigeria',flag:'🇳🇬',code:'NGN',locale:'en-NG',cities:['Lagos','Abuja','Kano','Ibadan','Port Harcourt'],currency:'₦',cost:1.1,base:550000,context:'Thị trường lớn, năng lượng, viễn thông, thương mại và hệ sinh thái khởi nghiệp.',publicLabel:'Civil service'},
+{n:'Argentina',flag:'🇦🇷',code:'ARS',locale:'es-AR',cities:['Buenos Aires','Córdoba','Rosario','Mendoza','La Plata'],currency:'AR$',cost:1.7,base:700000,context:'Nông nghiệp, năng lượng, công nghệ và dịch vụ; biến động kinh tế là một yếu tố mô phỏng.',publicLabel:'Servicio público'}
+];
+const NAMESETS={
+'Việt Nam':{m:['Nguyễn Minh','Trần Đức','Lê Hoàng','Phạm Quang','Vũ Thành','Đặng Gia'],f:['Nguyễn Ngọc','Trần Khánh','Lê Thu','Phạm Mai','Vũ Bảo','Đặng Minh'],last:['An','Bình','Dũng','Huy','Long','Nam','Phúc','Trang','Vy','Linh']},
+'Hoa Kỳ':{m:['James','William','Noah','Liam','Benjamin','Ethan'],f:['Olivia','Emma','Sophia','Ava','Mia','Charlotte'],last:['Smith','Johnson','Brown','Miller','Davis','Wilson']},
+'Trung Quốc':{m:['Wei','Jun','Ming','Hao','Jian','Lei'],f:['Mei','Lin','Yue','Xinyi','Jing','Fang'],last:['Wang','Li','Zhang','Liu','Chen','Yang']},
+'Nhật Bản':{m:['Haruto','Ren','Yuto','Sota','Kaito','Riku'],f:['Yui','Sakura','Aoi','Hina','Mei','Rin'],last:['Sato','Suzuki','Takahashi','Tanaka','Watanabe','Ito']},
+'Hàn Quốc':{m:['Min-jun','Seo-jun','Do-yun','Ji-ho','Hyun-woo'],f:['Seo-yeon','Ji-woo','Ha-eun','Min-seo','Su-bin'],last:['Kim','Lee','Park','Choi','Jung']},
+'Đức':{m:['Lukas','Leon','Paul','Felix','Jonas'],f:['Mia','Emma','Hannah','Emilia','Lina'],last:['Müller','Schmidt','Schneider','Fischer','Weber']},
+'Pháp':{m:['Gabriel','Louis','Raphaël','Jules','Arthur'],f:['Emma','Jade','Louise','Alice','Chloé'],last:['Martin','Bernard','Dubois','Thomas','Robert']},
+'Default':{m:['Alex','Daniel','Lucas','Noah','Adam'],f:['Anna','Maya','Sofia','Amira','Sara'],last:['Martin','Garcia','Anderson','Wilson','Taylor']}
+};
+const $=id=>document.getElementById(id);const rand=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;const pick=a=>a[Math.floor(Math.random()*a.length)];const clamp=(n,a=0,b=100)=>Math.max(a,Math.min(b,n));const clone=o=>JSON.parse(JSON.stringify(o));
+let game=null;let currentTab='overview';
+function countryByName(n){return COUNTRIES.find(c=>c.n===n)||COUNTRIES[0]}
+function fmt(n){if(!game)return String(n);let c=game.country;try{return new Intl.NumberFormat(c.locale,{maximumFractionDigits:0}).format(Math.round(n))+' '+c.currency}catch(e){return Math.round(n).toLocaleString('vi-VN')+' '+c.currency}}
+function compact(n){if(!game)return n;let c=game.country;return fmt(n)}
+function addLog(text,type='info'){game.log.unshift({date:dateLabel(),text,type});if(game.log.length>100)game.log.pop()}
+function dateLabel(){return new Date(game.date).toLocaleDateString('vi-VN',{month:'long',year:'numeric'})}
+function toast(msg){let el=document.createElement('div');el.className='toast';el.textContent=msg;$('toastHost').appendChild(el);setTimeout(()=>el.remove(),2700)}
+function genName(country,gender){let s=NAMESETS[country]||NAMESETS.Default;let first=pick(gender==='Nữ'?s.f:s.m),last=pick(s.last);return country==='Việt Nam'?first+' '+last:first+' '+last}
+function originText(o){return ({poor:'Gia đình nghèo',working:'Gia đình lao động',middle:'Gia đình trung lưu',rich:'Gia đình giàu có',powerful:'Gia đình quyền thế'})[o]||'Gia đình chưa xác định'}
+function makeGame(config){let c=countryByName(config.country);let age=Number(config.age);let gender=config.gender==='random'?pick(['Nam','Nữ']):config.gender;let origin=config.origin==='random'?pick(['poor','working','middle','middle','rich','powerful']):config.origin;let diff=config.difficulty;let mult=diff==='easy'?1.5:diff==='hard'?.62:diff==='normal'?1.15:1;let baseCash={poor: c.base*.5,working:c.base*1.5,middle:c.base*5,rich:c.base*45,powerful:c.base*70}[origin]*mult;let edu=age>=22?16:age>=18?12:age>=15?9:0;let stats={health:rand(65,92),intelligence:rand(35,78),discipline:rand(30,75),communication:rand(25,72),leadership:rand(20,65),creativity:rand(25,80),resilience:rand(30,80),reputation:rand(0,8),integrity:rand(55,90),network:rand(3,18),education:edu};
+let career={path:'none',title:age>=22?'Chưa có việc làm':'Học sinh / người chưa đi làm',level:0,experience:0,performance:rand(35,55),tenure:0,employer:'Chưa có tổ chức',salary:0,status:age>=22?'Đang tìm hướng đi':'Chưa đi làm',promotion:0,publicRank:0};
+let g={version:1,createdAt:new Date().toISOString(),name:config.name||genName(c.n,gender),gender,country:c,city:config.city||pick(c.cities),age,ageMonths:age*12,date:'2026-11-13T12:00:00.000Z',difficulty:diff,difficultyLabel:({easy:'Dễ',normal:'Bình thường',hard:'Khó',realistic:'Thực tế'})[diff],goal:config.goal,extra:config.extra,origin,originLabel:originText(origin),stats,career,finance:{cash:Math.round(baseCash*.5),bank:Math.round(baseCash*.35),salary:0,monthlyExpense:Math.round(c.base*(origin==='poor'?1.1:origin==='working'?1.4:origin==='middle'?2:origin==='rich'?4:4.5)),debt:0,assets:Math.round(baseCash*.15),businessValue:0,investment:0},family:{status:'Độc thân',children:0,parents:'Còn sống (mặc định trong mô phỏng)',siblings:rand(0,3),relationship:rand(45,80),description:originText(origin)+' tại '+(config.city||'địa phương')},people:[],world:{unemployment:rand(4,13),growth:rand(1,6),inflation:rand(2,8),stability:rand(50,85)},log:[],news:[],event:null,yearlyActions:0,dead:false};
+if(age>=22 && Math.random()<.48){g.career.path='private';g.career.title='Nhân viên mới';g.career.level=1;g.career.employer=pick(['Doanh nghiệp địa phương','Công ty dịch vụ','Doanh nghiệp tư nhân','Công ty thương mại']);g.career.status='Đang làm việc';g.career.salary=Math.round(c.base*(.75+Math.random()*.65));g.finance.salary=g.career.salary;g.career.experience=rand(0,24);g.career.tenure=g.career.experience;}
+if(age>=30 && Math.random()<.18){g.career.experience=rand(24,72);g.career.level=rand(1,3);g.career.title=['Chuyên viên','Chuyên viên cao cấp','Trưởng nhóm'][g.career.level-1];g.career.salary=Math.round(c.base*(1.1+g.career.level*.35));g.finance.salary=g.career.salary;g.career.status='Đang làm việc';}
+g.people=generatePeople(g,3);addLog('Cuộc đời của '+g.name+' bắt đầu tại '+g.city+', '+g.country.n+'.','good');g.event=buildEvent(g);return g;}
+function generatePeople(g,count){let roles=['Bạn học','Người thân','Người quen','Đồng nghiệp tương lai','Hàng xóm'];let arr=[];for(let i=0;i<count;i++){let gen=pick(['Nam','Nữ']);arr.push({name:genName(g.country.n,gen),role:pick(roles),age:Math.max(0,g.age+rand(-5,8)),trust:rand(25,75),ambition:rand(20,90),career:pick(['Học sinh','Nhân viên','Kinh doanh nhỏ','Sinh viên','Công chức']),note:'Đang xây dựng cuộc sống riêng.'})}return arr}
+function buildEvent(g){let age=g.age;let events=[];if(age<6)events.push({type:'Gia đình',title:'Những năm tháng đầu đời',text:'Gia đình đang định hình môi trường sống và những trải nghiệm đầu tiên của bạn. Sự chăm sóc, sức khỏe và điều kiện sống sẽ ảnh hưởng đến nền tảng phát triển.',choices:[{label:'Dành thời gian cùng gia đình',detail:'Tăng gắn kết, cải thiện sức khỏe tinh thần.',fn:'family',months:1},{label:'Tham gia hoạt động khám phá',detail:'Phát triển tò mò và sáng tạo.',fn:'explore',months:2}]});
+else if(age<18)events.push({type:'Giáo dục',title:'Một giai đoạn học tập',text:'Bạn đang ở độ tuổi hình thành thói quen và năng lực. Kết quả học tập phụ thuộc vào nỗ lực, điều kiện gia đình và chất lượng giáo dục tại địa phương.',choices:[{label:'Tập trung học tập',detail:'Cải thiện kết quả học và kiến thức.',fn:'study',months:3},{label:'Tham gia hoạt động ngoại khóa',detail:'Phát triển giao tiếp và quan hệ.',fn:'network',months:2},{label:'Giúp đỡ gia đình',detail:'Tăng trách nhiệm, giảm thời gian học.',fn:'helpFamily',months:1}]});
+else {events.push({type:'Cơ hội & lựa chọn',title:pick(['Một ngã rẽ mới','Cơ hội xuất hiện','Thử thách trong cuộc sống','Một lời đề nghị bất ngờ','Thời điểm cần quyết định']) ,text:pick(['Một người quen chia sẻ thông tin về cơ hội mới. Bạn cần cân nhắc lợi ích, chi phí và tác động lâu dài.','Một thay đổi nhỏ trong hoàn cảnh có thể mở ra hướng đi mới. Không có lựa chọn nào đảm bảo thành công.','Bạn nhận ra thời gian và nguồn lực có hạn. Cần quyết định điều gì đáng ưu tiên trong giai đoạn này.']),choices:[{label:'Đầu tư vào bản thân',detail:'Học tập, kỹ năng và sức khỏe.',fn:'study',months:3},{label:'Mở rộng quan hệ',detail:'Gặp gỡ và tạo kết nối mới.',fn:'network',months:1},{label:'Tập trung kiếm thu nhập',detail:'Tìm việc hoặc nâng hiệu quả công việc.',fn:'work',months:2},{label:'Nghỉ ngơi, cân bằng',detail:'Hồi phục sức khỏe và tinh thần.',fn:'rest',months:1}]});}
+return pick(events)}
+function advance(months){let oldAge=g.age;let d=new Date(g.date);d.setMonth(d.getMonth()+months);g.date=d.toISOString();g.ageMonths+=months;g.age=Math.floor(g.ageMonths/12);let years=Math.floor(g.ageMonths/12)-Math.floor((g.ageMonths-months)/12);if(years>0){let f=g.finance;f.bank*=Math.pow(1.01,years);g.stats.health=clamp(g.stats.health-rand(0,2)*years);if(g.age>=60)g.stats.health=clamp(g.stats.health-rand(1,4)*years);g.world.growth=clamp(g.world.growth+rand(-2,2),-5,10);g.world.inflation=clamp(g.world.inflation+rand(-2,2),0,20);addLog('Bạn bước sang tuổi '+g.age+'. Thế giới đã tiếp tục thay đổi trong thời gian đó.','info');}
+if(g.age<18){/* Family support covers basic living costs during childhood. */}
+else if(g.career.status==='Đang làm việc'||g.career.status==='Đang công tác'){let income=g.career.salary*months;let expense=g.finance.monthlyExpense*months;g.finance.cash+=income-expense;g.career.experience+=months;g.career.tenure+=months;g.career.performance=clamp(g.career.performance+rand(-2,3));}
+else if(g.career.status==='Tự kinh doanh'&&g.finance.businessValue>0){let profit=g.finance.businessValue*(rand(5,28)/1000)*months;let operating=g.finance.monthlyExpense*months*.9;g.finance.cash+=profit-operating;g.finance.businessValue=Math.max(0,g.finance.businessValue*(1+rand(-2,12)/1000*months));}
+else{g.finance.cash-=g.finance.monthlyExpense*months*.7;}
+g.finance.cash=Math.max(-g.finance.debt-100000000,g.finance.cash);g.stats.health=clamp(g.stats.health+(months>=2?-1:0));g.yearlyActions+=months;}
+function applyAction(fn,source='action'){if(g.dead)return;let msg='';let months=1;const s=g.stats,c=g.career,f=g.finance;
+switch(fn){
+case 'study':months=3;{let cost=g.country.base*.18;if(f.cash<cost){toast('Không đủ tiền cho khóa học này. Có thể chọn tự học.');months=1;s.intelligence=clamp(s.intelligence+1);s.education=clamp(s.education+0.2,0,22);msg='Bạn tự học bằng tài liệu sẵn có. Tiến bộ chậm nhưng vẫn tích lũy kiến thức.';}else{f.cash-=cost;s.intelligence=clamp(s.intelligence+rand(2,5));s.discipline=clamp(s.discipline+rand(1,3));s.education=clamp(s.education+.5,0,22);msg='Bạn hoàn thành một giai đoạn học tập. Kiến thức và năng lực được cải thiện.';}break;}
+case 'network':months=1;s.communication=clamp(s.communication+rand(1,3));s.network=clamp(s.network+rand(2,5));if(Math.random()<.45){g.people.push({name:genName(g.country.n,pick(['Nam','Nữ'])),role:'Mối quan hệ mới',age:g.age+rand(-4,8),trust:rand(40,70),ambition:rand(30,90),career:pick(['Chuyên viên','Doanh nhân','Nhà nghiên cứu','Công chức']),note:'Mới quen trong một hoạt động xã hội.'});}msg='Bạn dành thời gian gặp gỡ mọi người. Mạng lưới quan hệ được mở rộng.';break;
+case 'rest':months=1;s.health=clamp(s.health+rand(4,9));s.resilience=clamp(s.resilience+1);msg='Bạn nghỉ ngơi và điều chỉnh nhịp sống. Sức khỏe được cải thiện.';break;
+case 'family':months=1;g.family.relationship=clamp(g.family.relationship+rand(3,7));s.resilience=clamp(s.resilience+2);if(g.family.status==='Đang trong một mối quan hệ'&&g.family.relationship>=82&&g.age>=20&&Math.random()<.2){g.family.status='Đã kết hôn';msg='Hai người quyết định kết hôn và xây dựng gia đình.';}else if(g.family.status==='Đã kết hôn'&&g.age>=22&&g.family.children<4&&Math.random()<.16){g.family.children++;msg='Gia đình chào đón thành viên mới. Trách nhiệm và chi phí sinh hoạt cũng tăng lên.';g.finance.monthlyExpense*=1.08;}else{msg='Bạn dành thời gian cho gia đình. Mối quan hệ trở nên gắn bó hơn.';}break;
+case 'explore':months=2;s.creativity=clamp(s.creativity+rand(2,5));s.communication=clamp(s.communication+1);msg='Bạn khám phá môi trường xung quanh, tích lũy trải nghiệm và sự tò mò.';break;
+case 'helpFamily':months=1;g.family.relationship=clamp(g.family.relationship+3);s.discipline=clamp(s.discipline+2);f.cash+=g.country.base*.08;msg='Bạn hỗ trợ gia đình và nhận được một khoản hỗ trợ nhỏ.';break;
+case 'job':months=2;if(g.age<18){msg='Bạn chưa đủ tuổi cho công việc toàn thời gian trong mô phỏng này.';months=0;break;}if(c.status==='Đang làm việc'){msg='Bạn hiện đã có công việc. Hãy cân nhắc tích lũy thành tích hoặc tìm cơ hội chuyển việc.';months=0;break;}let chance=clamp(35+s.communication*.25+s.education*1.4+s.network*.35+(g.difficulty==='easy'?15:g.difficulty==='hard'?-12:0),10,88);if(rand(1,100)<=chance){c.path='private';c.title='Nhân viên';c.level=Math.max(1,c.level);c.employer=pick(['Doanh nghiệp địa phương','Công ty dịch vụ','Công ty thương mại','Doanh nghiệp công nghệ','Tập đoàn đa ngành']);c.salary=Math.round(g.country.base*(.75+Math.random()*.5));c.status='Đang làm việc';c.tenure=0;f.salary=c.salary;s.reputation=clamp(s.reputation+2);msg='Bạn vượt qua vòng tuyển dụng và nhận được lời mời làm việc tại '+c.employer+'. Thu nhập dự kiến: '+fmt(c.salary)+'/tháng.';}else{msg='Bạn chưa vượt qua vòng tuyển dụng. Hồ sơ cần thêm kỹ năng, kinh nghiệm hoặc sự chuẩn bị.';s.resilience=clamp(s.resilience+1);}break;
+case 'public':months=3;if(g.age<18){msg='Bạn chưa đủ tuổi tham gia tuyển dụng công vụ.';months=0;break;}if(c.path==='public'){msg='Bạn đã ở trong khu vực công. Hãy tích lũy thành tích hoặc xem xét cơ hội bổ nhiệm.';months=0;break;}let pc=clamp(18+s.education*1.6+s.intelligence*.25+s.discipline*.25+s.integrity*.15+(g.difficulty==='easy'?15:g.difficulty==='hard'?-10:0),8,78);if(rand(1,100)<=pc){c.path='public';c.title='Chuyên viên / nhân sự công vụ';c.publicRank=1;c.level=1;c.employer='Cơ quan hành chính địa phương';c.salary=Math.round(g.country.base*.85);c.status='Đang công tác';c.tenure=0;f.salary=c.salary;s.reputation=clamp(s.reputation+4);msg='Bạn vượt qua quy trình tuyển chọn mô phỏng và gia nhập khu vực công tại '+g.city+'. Vị trí đầu tiên: '+c.title+'.';}else{msg='Bạn chưa được tuyển chọn. Các ứng viên cạnh tranh có kết quả tốt hơn hoặc hồ sơ của bạn chưa đạt yêu cầu.';s.resilience=clamp(s.resilience+2);}break;
+case 'work':months=2;if(c.status!=='Đang làm việc'&&c.status!=='Đang công tác'){msg='Bạn chưa có công việc để thực hiện. Hãy tìm việc hoặc chọn một hướng phát triển.';months=0;break;}c.performance=clamp(c.performance+rand(3,8));s.discipline=clamp(s.discipline+1);s.reputation=clamp(s.reputation+rand(0,2));msg='Bạn hoàn thành nhiệm vụ công việc. Hiệu suất và kinh nghiệm được cải thiện.';break;
+case 'business':months=3;{let capital=g.country.base*4;if(f.cash<capital){msg='Bạn chưa đủ vốn khởi nghiệp. Cần khoảng '+fmt(capital)+' để bắt đầu mô hình kinh doanh nhỏ trong game.';months=0;break;}f.cash-=capital;f.businessValue=capital*1.15;c.path='business';c.title='Chủ cơ sở kinh doanh';c.employer='Cơ sở kinh doanh riêng';c.status='Tự kinh doanh';c.salary=0;f.salary=0;s.leadership=clamp(s.leadership+3);msg='Bạn thành lập một cơ sở kinh doanh nhỏ. Vốn ban đầu: '+fmt(capital)+'. Doanh thu và lợi nhuận sẽ phụ thuộc vào quyết định sau này.';}break;
+case 'migrate':showMigrationModal();return;
+case 'manageBusiness':months=2;if(c.path!=='business'||c.status!=='Tự kinh doanh'){msg='Bạn chưa sở hữu cơ sở kinh doanh để quản lý.';months=0;break;}if(Math.random()<.68){f.businessValue*=1+rand(3,12)/100;s.leadership=clamp(s.leadership+2);msg='Bạn cải thiện hoạt động kinh doanh, giá trị cơ sở tăng lên '+fmt(f.businessValue)+'.';}else{f.businessValue*=1-rand(2,9)/100;msg='Một quyết định vận hành chưa hiệu quả khiến giá trị cơ sở giảm. Hãy đánh giá lại chi phí và thị trường.';}break;
+case 'resign':months=1;if(!['Đang làm việc','Đang công tác','Tự kinh doanh'].includes(c.status)){msg='Bạn hiện không có vị trí để rời bỏ.';months=0;break;}c.status='Đang tìm hướng đi';c.title='Đang chuyển hướng';c.employer='Chưa có tổ chức';c.salary=0;f.salary=0;c.path='none';c.level=0;c.publicRank=0;c.tenure=0;msg='Bạn rời vị trí hiện tại để tìm hướng đi mới. Thu nhập từ công việc cũ đã dừng.';break;
+case 'academic':months=3;if(g.age<21||s.education<16){msg='Con đường học thuật thường yêu cầu nền tảng học vấn và chuyên môn cao hơn. Hãy tiếp tục học tập trước.';months=0;break;}if(c.status==='Đang công tác'||c.status==='Đang làm việc'){msg='Bạn cần hoàn tất hoặc chuyển hướng công việc hiện tại trước khi gia nhập một tổ chức học thuật.';months=0;break;}if(rand(1,100)<clamp(25+s.education*2+s.intelligence*.3,15,80)){c.path='academic';c.level=1;c.title='Trợ lý nghiên cứu / giảng dạy';c.employer='Cơ sở giáo dục hoặc viện nghiên cứu';c.status='Đang làm việc';c.salary=Math.round(g.country.base*.9);f.salary=c.salary;c.tenure=0;s.reputation=clamp(s.reputation+2);msg='Bạn được nhận vào vị trí khởi đầu trong lĩnh vực học thuật.';}else{msg='Bạn chưa được nhận. Hồ sơ nghiên cứu, kết quả học tập hoặc kinh nghiệm cần được cải thiện.';}break;
+case 'invest':months=1;{let amount=Math.min(f.cash*.2,g.country.base*6);if(amount<g.country.base*.3){msg='Tiền mặt chưa đủ để đầu tư thử nghiệm.';months=0;break;}f.cash-=amount;f.investment+=amount;let change=(Math.random()-.42)*.24;let result=amount*change;f.investment+=result;if(f.investment<0)f.investment=0;msg='Khoản đầu tư biến động '+(change>=0?'tăng ':'giảm ')+fmt(Math.abs(result))+'. Thị trường luôn có rủi ro.';}break;
+case 'promotion':months=3;if(!['Đang làm việc','Đang công tác'].includes(c.status)){msg='Bạn cần có vị trí công việc trước khi đề xuất xét thăng tiến.';months=0;break;}let req=c.path==='public'?24:18;let maxLevel=c.path==='public'?10:7;let score=c.performance*.45+s.leadership*.3+s.integrity*.15+s.network*.1+(c.tenure>=req?10:-15);if(c.level>=maxLevel){msg='Bạn đã ở cấp bậc cao của tổ chức hiện tại. Có thể cần chuyển cơ quan hoặc được bổ nhiệm vào vị trí khác.';months=0;break;}if(c.tenure>=req&&score>52&&Math.random()<(score/130)){c.level++;c.performance=clamp(c.performance-8);c.title=c.path==='public'?publicTitle(c.publicRank+1):privateTitle(c.level);if(c.path==='public')c.publicRank++;c.salary=Math.round(c.salary*1.23);f.salary=c.salary;s.reputation=clamp(s.reputation+5);msg='Bạn được thăng tiến lên vị trí '+c.title+'. Thu nhập và trách nhiệm tăng lên.';}else{c.performance=clamp(c.performance+3);msg='Đợt đánh giá chưa dẫn đến thăng chức. Bạn nhận thêm phản hồi và cần tiếp tục tích lũy thành tích, thâm niên.';}break;
+case 'policy':months=3;if(c.path!=='public'||c.level<3){msg='Bạn cần đạt cấp quản lý trong khu vực công để chủ trì một đề án chính sách.';months=0;break;}let budget=g.country.base*25;if(f.cash<0){msg='Tình hình tài chính cá nhân đang quá căng thẳng để tham gia hoạt động chuyên môn ngoài công việc.';months=0;break;}g.world.growth=clamp(g.world.growth+(Math.random()>.4?.2:-.1),-5,10);s.reputation=clamp(s.reputation+rand(1,4));c.performance=clamp(c.performance+rand(2,5));msg='Bạn tham gia xây dựng và triển khai một đề án công. Kết quả được đánh giá theo tiến độ, ngân sách và tác động đến người dân.';break;
+case 'date':months=1;if(g.age<16){msg='Bạn còn quá trẻ cho hoạt động hẹn hò trong mô phỏng.';months=0;break;}g.family.relationship=clamp(g.family.relationship+rand(3,8));s.communication=clamp(s.communication+2);if(g.family.status==='Độc thân'&&g.family.relationship>=65&&Math.random()<.32){g.family.status='Đang trong một mối quan hệ';msg='Bạn và một người bạn bắt đầu tìm hiểu nghiêm túc. Mối quan hệ mới cần thời gian và sự quan tâm.';}else{msg='Bạn dành thời gian tìm hiểu và xây dựng các mối quan hệ tình cảm.';}break;
+case 'year':months=12;msg='Bạn quyết định dành trọn một năm cho nhịp sống hiện tại. Thu nhập, chi phí, kinh nghiệm và các biến động xã hội được cập nhật.';break;
+}
+if(months>0)advance(months);if(msg){addLog(msg,fn==='promotion'||fn==='public'?'good':'info');toast(msg.length>100?msg.slice(0,96)+'…':msg);}if(Math.random()<.28&&months>0)triggerWorldEvent();if(g.age>=90&&Math.random()<.12){g.dead=true;addLog('Cuộc đời của bạn khép lại ở tuổi '+g.age+'. Đây là kết thúc của một hành trình, không phải một đánh giá về giá trị con người.','warn');showDeath();return;}g.event=buildEvent(g);render();saveLocal();}
+function privateTitle(level){return ['Chưa có việc làm','Nhân viên','Chuyên viên','Chuyên viên cao cấp','Trưởng nhóm','Trưởng phòng','Giám đốc bộ phận','Giám đốc điều hành'][Math.min(level,7)]}
+function publicTitle(rank){let titles=['','Chuyên viên công vụ','Chuyên viên chính / chuyên gia','Tổ trưởng / quản lý nhóm','Phó trưởng phòng','Trưởng phòng','Phó thủ trưởng đơn vị','Thủ trưởng đơn vị','Lãnh đạo cấp tỉnh / cơ quan tương đương','Lãnh đạo cấp trung ương','Lãnh đạo cấp cao quốc gia'];return titles[Math.min(rank,10)]||'Lãnh đạo cấp cao quốc gia'}
+function triggerWorldEvent(){let events=[{t:'Biến động thị trường',d:'Một số ngành nghề trong nước ghi nhận nhu cầu tuyển dụng thay đổi. Cơ hội có thể xuất hiện ở lĩnh vực khác.',f:()=>{g.world.growth=clamp(g.world.growth+rand(-1,1),-5,10)}},{t:'Điều chỉnh chi phí sinh hoạt',d:'Giá một số mặt hàng thiết yếu tăng nhẹ. Ngân sách cá nhân cần được theo dõi.',f:()=>{g.finance.monthlyExpense=Math.round(g.finance.monthlyExpense*1.025)}},{t:'Chương trình đào tạo mới',d:'Một tổ chức mở chương trình đào tạo chuyên môn. Người có nền tảng phù hợp có thể tận dụng cơ hội.',f:()=>{g.stats.intelligence=clamp(g.stats.intelligence+1)}},{t:'Thay đổi nhân sự',d:'Một số tổ chức đang rà soát cơ cấu và nhu cầu nhân sự. Môi trường cạnh tranh có thể thay đổi.',f:()=>{g.world.stability=clamp(g.world.stability+rand(-3,3))}},{t:'Hoạt động cộng đồng',d:'Địa phương tổ chức hoạt động xã hội, tạo cơ hội kết nối và đóng góp.',f:()=>{g.stats.network=clamp(g.stats.network+1)}}];let e=pick(events);e.f();g.news.unshift({date:dateLabel(),title:e.t,text:e.d});if(g.news.length>12)g.news.pop();addLog('Tin thế giới: '+e.t+'. '+e.d,'info')}
+function doChoice(fn){applyAction(fn,'event')}
+function actionButton(title,desc,fn){return `<button class="action-card" data-action="${fn}"><b>${title}</b><span>${desc}</span></button>`}
+function render(){if(!g)return;$('sideName').textContent=g.name;$('sideMeta').textContent=g.age+' tuổi · '+g.country.flag+' '+g.country.n;$('avatar').textContent=g.gender==='Nữ'?'👩':'👤';$('sideDate').textContent=dateLabel();$('difficultyBadge').textContent='Độ khó: '+g.difficultyLabel;$('overviewSub').textContent=g.city+', '+g.country.n+' · '+g.originLabel;$('statusStrip').innerHTML=[['Tiền mặt',fmt(g.finance.cash),'Số dư khả dụng'],['Thu nhập / tháng',fmt(g.finance.salary),'Từ công việc hiện tại'],['Sức khỏe',g.stats.health+'/100','Thể trạng hiện tại'],['Uy tín',g.stats.reputation+'/100','Danh tiếng xã hội']].map(x=>`<div class="metric"><div class="k">${x[0]}</div><div class="v" style="font-size:${x[1].length>16?'14px':'19px'}">${x[1]}</div><div class="d">${x[2]}</div></div>`).join('');
+$('eventType').textContent=(g.event?.type||'CUỘC ĐỜI').toUpperCase();$('eventDate').textContent=dateLabel();$('eventTitle').textContent=g.dead?'Hành trình đã khép lại':g.event.title;$('eventText').textContent=g.dead?'Bạn có thể xem lại nhật ký và bắt đầu một cuộc đời mới.':g.event.text;$('eventChoices').innerHTML=g.dead?'<button class="choice" onclick="newLife()">Bắt đầu cuộc đời mới</button>':g.event.choices.map((x,i)=>`<button class="choice" data-choice="${x.fn}">${x.label}<small>${x.detail}</small></button>`).join('');
+$('actionGrid').innerHTML=[actionButton('📚 Học tập & nâng kỹ năng','3 tháng · Nâng kiến thức','study'),actionButton('🤝 Mở rộng quan hệ','1 tháng · Kết nối xã hội','network'),actionButton('💼 Tìm kiếm việc làm','2 tháng · Phỏng vấn tuyển dụng','job'),actionButton('🏛️ Thi tuyển công vụ','3 tháng · Cạnh tranh tuyển dụng','public'),actionButton('🧭 Làm việc / thực hiện nhiệm vụ','2 tháng · Tăng hiệu suất','work'),actionButton('🌿 Nghỉ ngơi','1 tháng · Hồi phục sức khỏe','rest'),actionButton('🏢 Khởi nghiệp','3 tháng · Cần vốn ban đầu','business'),actionButton('📈 Quản lý kinh doanh','2 tháng · Chỉ khi đã có cơ sở','manageBusiness'),actionButton('⏩ Tua một năm','12 tháng · Cập nhật cuộc sống','year')].join('');
+$('statList').innerHTML=[['Sức khỏe',g.stats.health],['Trí tuệ',g.stats.intelligence],['Kỷ luật',g.stats.discipline],['Giao tiếp',g.stats.communication],['Lãnh đạo',g.stats.leadership],['Sáng tạo',g.stats.creativity],['Kiên trì',g.stats.resilience],['Uy tín',g.stats.reputation],['Liêm chính',g.stats.integrity],['Mạng lưới',g.stats.network],['Học vấn',Math.round(g.stats.education*4.5)]].map(x=>`<div class="stat-row"><span>${x[0]}</span><div class="bar"><i style="width:${clamp(x[1])}%"></i></div><b>${Math.round(x[1])}</b></div>`).join('');
+$('lifeInfo').innerHTML=[['Năm sinh mô phỏng',g.birthYear],['Quốc gia',g.country.flag+' '+g.country.n],['Thành phố',g.city],['Xuất thân',g.originLabel],['Mục tiêu',g.goal],['Tình trạng',g.career.status],['Gia đình',g.family.status]].map(x=>`<div class="info-row"><span>${x[0]}</span><strong>${x[1]}</strong></div>`).join('');renderCareer();renderFinance();renderSociety();renderWorld();renderHistory();}
+function renderCareer(){let c=g.career;let pub=c.path==='public';$('careerSummary').innerHTML=`<div class="eyebrow">Hồ sơ nghề nghiệp</div><h3 style="font-size:21px;margin:6px 0">${c.title}</h3><div class="muted tiny">${c.employer}</div><div class="career-level">${Array.from({length:pub?10:7},(_,i)=>`<i class="${i<c.level?'on':''}"></i>`).join('')}</div><div class="info-list">${[['Nhánh sự nghiệp',pub?'Khu vực công':c.path==='business'?'Kinh doanh':c.path==='private'?'Doanh nghiệp':'Chưa lựa chọn'],['Cấp bậc',c.level],['Kinh nghiệm',c.experience+' tháng'],['Thâm niên vị trí',c.tenure+' tháng'],['Hiệu suất',c.performance+'/100'],['Thu nhập',fmt(c.salary)+'/tháng'],['Trạng thái',c.status]].map(x=>`<div class="info-row"><span>${x[0]}</span><strong>${x[1]}</strong></div>`).join('')}</div><p class="hint" style="margin-top:13px">${pub?'Thăng tiến công vụ phụ thuộc vào tiêu chuẩn, kết quả công tác, thâm niên, cơ cấu vị trí và quy trình của quốc gia.': 'Thăng tiến phụ thuộc vào kết quả công việc, năng lực, kinh nghiệm và nhu cầu tổ chức.'}</p>`;
+let paths=[['🏢','Doanh nghiệp','Làm thuê, quản lý và điều hành công ty.','private'],['🏛️',g.country.publicLabel,'Thi tuyển, phục vụ công và phát triển lên vị trí quản lý.','public'],['🚀','Kinh doanh','Tự thành lập và phát triển doanh nghiệp.','business'],['🎓','Học thuật','Nghiên cứu, giảng dạy và quản lý giáo dục.','academic']];$('careerPaths').innerHTML=paths.map(p=>`<div class="mini-card"><h4>${p[0]} ${p[1]}</h4><p>${p[2]}</p><span class="badge" style="display:inline-block;margin-top:9px">${c.path===p[3]?'Đang theo đuổi':'Có thể lựa chọn'}</span></div>`).join('');
+$('careerActions').innerHTML=[actionButton('Nộp hồ sơ tuyển dụng','Tìm việc tại doanh nghiệp','job'),actionButton('Thi tuyển công vụ','Bắt đầu con đường hành chính','public'),actionButton('Ứng tuyển học thuật','Giảng dạy và nghiên cứu','academic'),actionButton('Tích lũy thành tích','Thực hiện nhiệm vụ hiện tại','work'),actionButton('Đề nghị xét thăng tiến','Cần đủ thâm niên và thành tích','promotion'),actionButton('Đề xuất chính sách','Dành cho cấp quản lý khu vực công','policy'),actionButton('Chuyển hướng nghề nghiệp','Rời công việc để tìm con đường mới','resign'),actionButton('Đào tạo chuyên môn','Bổ sung kiến thức','study')].join('');}
+function renderFinance(){let f=g.finance;let net=f.cash+f.bank+f.assets+f.investment+f.businessValue-f.debt;$('financeMetrics').innerHTML=[['Tài sản ròng',fmt(net),'Sau khi trừ nợ'],['Tiền mặt',fmt(f.cash),'Sử dụng ngay'],['Tiền gửi',fmt(f.bank),'Tiền tích lũy'],['Nợ phải trả',fmt(f.debt),'Nghĩa vụ tài chính']].map(x=>`<div class="metric"><div class="k">${x[0]}</div><div class="v" style="font-size:15px">${x[1]}</div><div class="d">${x[2]}</div></div>`).join('');$('cashflow').innerHTML=[['Lương / thu nhập',fmt(f.salary)],['Chi phí hàng tháng',fmt(f.monthlyExpense)],['Dòng tiền dự kiến',fmt(f.salary-f.monthlyExpense)],['Đơn vị tiền tệ',g.country.code]].map(x=>`<div class="info-row"><span>${x[0]}</span><strong>${x[1]}</strong></div>`).join('');$('assets').innerHTML=[['Tiền mặt',fmt(f.cash)],['Tiền gửi',fmt(f.bank)],['Tài sản khác',fmt(f.assets)],['Danh mục đầu tư',fmt(f.investment)],['Giá trị kinh doanh',fmt(f.businessValue)],['Tổng nợ',fmt(f.debt)]].map(x=>`<div class="info-row"><span>${x[0]}</span><strong>${x[1]}</strong></div>`).join('');$('financeActions').innerHTML=[actionButton('Đầu tư thử nghiệm','Dùng tối đa 20% tiền mặt, có rủi ro','invest'),actionButton('Tích lũy qua công việc','Thực hiện nhiệm vụ để nhận lương','work'),actionButton('Khởi nghiệp','Đầu tư vốn để mở cơ sở kinh doanh','business'),actionButton('Quản lý cơ sở kinh doanh','Phát triển hoặc đối mặt rủi ro','manageBusiness')].join('');}
+function renderSociety(){$('familyBox').innerHTML=`<div class="info-list">${[['Tình trạng',g.family.status],['Hoàn cảnh',g.family.description],['Anh chị em',g.family.siblings],['Con cái',g.family.children||0],['Gắn kết gia đình',g.family.relationship+'/100'],['Cha mẹ',g.family.parents]].map(x=>`<div class="info-row"><span>${x[0]}</span><strong>${x[1]}</strong></div>`).join('')}</div>`;$('peopleBox').innerHTML=g.people.length?`<div class="feed">${g.people.map(p=>`<div class="feed-item"><b>${p.name}</b> <span class="badge">${p.role}</span><p>${p.age} tuổi · ${p.career} · Mức tin cậy ${p.trust}/100</p></div>`).join('')}</div>`:'<div class="empty">Chưa có mối quan hệ đáng chú ý.</div>';$('socialActions').innerHTML=[actionButton('Dành thời gian cho gia đình','Tăng sự gắn kết','family'),actionButton('Gặp gỡ và kết nối','Mở rộng mạng lưới','network'),actionButton('Hoạt động tình cảm','Phát triển đời sống cá nhân','date'),actionButton('Nghỉ ngơi','Chăm sóc bản thân','rest')].join('');}
+function renderWorld(){ $('countryBox').innerHTML=`<div style="display:flex;gap:13px;align-items:center;margin-bottom:12px"><div style="font-size:36px">${g.country.flag}</div><div><b>${g.country.n}</b><div class="muted tiny">${g.city} · ${g.country.code}</div></div></div><p class="muted tiny">${g.country.context}</p><button class="btn small" style="margin-top:13px" data-action="migrate">Du học / di cư sang quốc gia khác →</button><div class="info-list">${[['Tăng trưởng (mô phỏng)',g.world.growth.toFixed(1)+'%'],['Lạm phát (mô phỏng)',g.world.inflation.toFixed(1)+'%'],['Thất nghiệp (mô phỏng)',g.world.unemployment.toFixed(1)+'%'],['Ổn định xã hội',g.world.stability+'/100']].map(x=>`<div class="info-row"><span>${x[0]}</span><strong>${x[1]}</strong></div>`).join('')}</div>`;$('worldBox').innerHTML=`<div class="info-list">${[['Thời kỳ','Mô phỏng hiện đại'],['Chu kỳ kinh tế',g.world.growth>3?'Tăng trưởng':g.world.growth<0?'Suy giảm':'Ổn định tương đối'],['Mức độ cạnh tranh',g.difficultyLabel],['Phạm vi mô phỏng','Quốc gia và địa phương']].map(x=>`<div class="info-row"><span>${x[0]}</span><strong>${x[1]}</strong></div>`).join('')}</div><p class="hint" style="margin-top:12px">Chỉ số quốc gia là biến số gameplay được tạo ngẫu nhiên, không phải dữ liệu thống kê thực tế.</p>`;$('newsFeed').innerHTML=g.news.length?g.news.map(n=>`<div class="feed-item"><time>${n.date}</time><b style="display:block;margin-top:3px">${n.title}</b><p>${n.text}</p></div>`).join(''):'<div class="empty">Chưa có tin tức. Thế giới sẽ thay đổi khi thời gian trôi qua.</div>';}
+function renderHistory(){$('historyFeed').innerHTML=g.log.length?g.log.map(l=>`<div class="feed-item"><time>${l.date}</time><p>${l.text}</p></div>`).join(''):'<div class="empty">Nhật ký đang trống.</div>';}
+function switchTab(tab){currentTab=tab;document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.id==='tab-'+tab));}
+function showGame(){ $('setupScreen').classList.add('hidden');$('gameScreen').classList.remove('hidden');$('topActions').innerHTML='<button class="btn ghost small" id="howBtn">Hướng dẫn</button><button class="btn small" id="saveBtnTop">Lưu game</button>';bindDynamicTop();render();switchTab('overview');}
+function bindDynamicTop(){ $('howBtn').onclick=showHelp;$('saveBtnTop').onclick=()=>{saveLocal();toast('Đã lưu tiến trình trên trình duyệt.')};}
+function startGame(){let config={country:$('country').value,city:$('city').value.trim(),age:$('startAge').value,gender:$('gender').value,name:$('name').value.trim(),origin:$('origin').value,difficulty:$('difficulty').value,goal:$('goal').value,extra:$('extra').value.trim()};g=makeGame(config);saveLocal();showGame();toast('Cuộc đời mới đã bắt đầu.');}
+function saveLocal(){if(g)localStorage.setItem('oneIn8billion_save_v1',JSON.stringify(g))}
+function loadLocal(){let raw=localStorage.getItem('oneIn8billion_save_v1');if(!raw){toast('Không tìm thấy bản lưu trên trình duyệt này.');return false;}try{let data=JSON.parse(raw);data.country=countryByName(data.country?.n||data.country);g=data;showGame();toast('Đã tải tiến trình.');return true}catch(e){toast('Bản lưu không hợp lệ hoặc bị hỏng.');return false}}
+function exportSave(){if(!g)return;let blob=new Blob([JSON.stringify(g,null,2)],{type:'application/json'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='1-trong-8-ty-save.json';a.click();URL.revokeObjectURL(a.href)}
+function importSave(file){let r=new FileReader();r.onload=()=>{try{let data=JSON.parse(r.result);data.country=countryByName(data.country?.n||data.country);g=data;saveLocal();showGame();toast('Đã nhập bản lưu.')}catch(e){toast('Không đọc được file lưu.')}};r.readAsText(file)}
+function newLife(){if(confirm('Bắt đầu cuộc đời mới? Bản lưu hiện tại sẽ được thay thế khi lưu game mới.')){g=null;localStorage.removeItem('oneIn8billion_save_v1');$('gameScreen').classList.add('hidden');$('setupScreen').classList.remove('hidden');}}
+function showMigrationModal(){
+  const options=COUNTRIES.map(c=>`<option value="${c.n}" ${c.n===g.country.n?'selected':''}>${c.flag} ${c.n}</option>`).join('');
+  $('modalHost').innerHTML=`<div class="modal-backdrop" id="migrationBg"><div class="modal"><div class="eyebrow">Thay đổi nơi sinh sống</div><h3>Du học / di cư quốc tế</h3><p>Chuyển đến một quốc gia khác có thể mở ra cơ hội học tập và nghề nghiệp, nhưng cũng phát sinh chi phí, khác biệt ngôn ngữ và rủi ro mất việc. Đây là mô phỏng gameplay, không thay thế quy định nhập cư thực tế.</p><div class="field"><label for="migrationCountry">Quốc gia muốn chuyển đến</label><select id="migrationCountry">${options}</select></div><div class="field" style="margin-top:12px"><label for="migrationReason">Mục đích</label><select id="migrationReason"><option>Du học và nâng cao trình độ</option><option>Tìm kiếm việc làm</option><option>Định cư cùng gia đình</option><option>Mở rộng kinh doanh</option></select></div><div class="hint" style="margin-top:10px">Chi phí mô phỏng: tương đương khoảng 3 tháng mức lương cơ bản tại nơi đang sống. Nếu đang làm công việc tại địa phương, bạn có thể phải tìm việc mới.</div><div class="modal-actions"><button class="btn" id="migrationCancel">Hủy</button><button class="btn primary" id="migrationConfirm">Xác nhận chuyển đi</button></div></div></div>`;
+  $('migrationCancel').onclick=()=>$('modalHost').innerHTML='';
+  $('migrationConfirm').onclick=()=>{
+    const next=countryByName($('migrationCountry').value);const reason=$('migrationReason').value;
+    if(next.n===g.country.n){toast('Bạn đang sinh sống tại quốc gia này.');$('modalHost').innerHTML='';return;}
+    const cost=g.country.base*3;
+    if(g.age<18&&g.family.relationship<40){toast('Hoàn cảnh gia đình hiện chưa thuận lợi để chuyển đi khi còn vị thành niên.');return;}
+    if(g.finance.cash<cost){toast('Bạn chưa đủ tiền cho chi phí di chuyển mô phỏng: '+fmt(cost));return;}
+    const old=g.country;const ratio=next.base/old.base;
+    g.finance.cash-=cost;g.finance.cash=g.finance.cash/old.base*next.base;g.finance.bank=g.finance.bank/old.base*next.base;g.finance.assets=g.finance.assets/old.base*next.base;g.finance.investment=g.finance.investment/old.base*next.base;g.finance.businessValue=g.finance.businessValue/old.base*next.base;g.finance.debt=g.finance.debt/old.base*next.base;g.finance.monthlyExpense=Math.round(g.finance.monthlyExpense/old.base*next.base);g.country=next;g.city=pick(next.cities);
+    if(g.career.status==='Đang làm việc'||g.career.status==='Đang công tác'){g.career.status='Đang tìm hướng đi';g.career.title='Đang tìm việc tại quốc gia mới';g.career.employer='Chưa có tổ chức';g.career.salary=0;g.finance.salary=0;g.career.path='none';g.career.level=0;g.career.publicRank=0;g.career.tenure=0;}
+    if(g.career.status==='Tự kinh doanh'){g.career.status='Tạm dừng hoạt động để chuyển địa bàn';g.career.title='Chủ cơ sở kinh doanh (tạm dừng)';}
+    g.stats.communication=clamp(g.stats.communication+2);g.stats.resilience=clamp(g.stats.resilience+2);advance(6);addLog('Bạn chuyển từ '+old.n+' đến '+next.n+' ('+g.city+'). Mục đích: '+reason+'. Tài sản được quy đổi theo sức mua tương đối trong game; công việc cũ không tự động được bảo đảm.','good');g.news.unshift({date:dateLabel(),title:'Thay đổi nơi sinh sống',text:g.name+' đã chuyển đến '+g.city+', '+next.n+'.'});g.event=buildEvent(g);$('modalHost').innerHTML='';render();saveLocal();toast('Đã chuyển đến '+next.n+'.');
+  };
+}
+function showDeath(){render();$('modalHost').innerHTML=`<div class="modal-backdrop"><div class="modal"><div class="eyebrow">Một hành trình khép lại</div><h3>${g.name} — ${g.age} tuổi</h3><p>Cuộc đời của nhân vật đã kết thúc trong mô phỏng. Nhật ký và những dấu mốc vẫn được giữ lại để bạn nhìn lại hành trình.</p><div class="modal-actions"><button class="btn" onclick="document.getElementById('modalHost').innerHTML='';switchTab('history')">Xem nhật ký</button><button class="btn primary" onclick="document.getElementById('modalHost').innerHTML='';newLife()">Tạo cuộc đời mới</button></div></div></div>`}
+function showHelp(){ $('modalHost').innerHTML=`<div class="modal-backdrop" id="modalBg"><div class="modal"><div class="eyebrow">Hướng dẫn nhanh</div><h3>Cách chơi 1 trong 8 tỷ</h3><p><b>1.</b> Mỗi hành động tiêu tốn thời gian. Khi thời gian trôi qua, tuổi tác, chi phí, lương và kinh nghiệm được cập nhật.</p><p><b>2.</b> Học tập giúp nâng nền tảng. Tìm việc hoặc thi tuyển công vụ để bắt đầu sự nghiệp. Làm việc để tăng hiệu suất và thâm niên.</p><p><b>3.</b> Khi đủ điều kiện, dùng hành động xét thăng tiến. Các chức vụ cao hơn cần thành tích và thời gian; kết quả không được bảo đảm.</p><p><b>4.</b> Dùng mục Tài chính để theo dõi tiền mặt, tiền gửi, tài sản, đầu tư và nợ. Các con số kinh tế là mô hình trò chơi.</p><p><b>5.</b> Game tự lưu trong trình duyệt. Hãy dùng “Xuất bản lưu” để chuyển tiến trình sang máy khác.</p><div class="modal-actions"><button class="btn primary" onclick="document.getElementById('modalHost').innerHTML=''">Đã hiểu</button></div></div></div>`;$('modalBg').addEventListener('click',e=>{if(e.target.id==='modalBg')$('modalHost').innerHTML=''})}
+function updateCountryPreview(){let c=countryByName($('country').value);$('countryPreview').innerHTML=`<div class="flag">${c.flag}</div><strong>${c.n}</strong><p>${c.context}</p><p style="margin-top:8px">Tiền tệ: <b>${c.code}</b> · Thành phố mô phỏng: ${c.cities.slice(0,3).join(', ')}</p>`;}
+function init(){let sel=$('country');sel.innerHTML=COUNTRIES.map(c=>`<option value="${c.n}">${c.flag} ${c.n}</option>`).join('');sel.value='Việt Nam';updateCountryPreview();sel.addEventListener('change',updateCountryPreview);$('startBtn').onclick=startGame;$('loadBtn').onclick=()=>{let raw=localStorage.getItem('oneIn8billion_save_v1');if(raw)loadLocal();else{let inp=document.createElement('input');inp.type='file';inp.accept='.json,application/json';inp.onchange=()=>inp.files[0]&&importSave(inp.files[0]);inp.click();}};$('howBtn').onclick=showHelp;$('nav').addEventListener('click',e=>{let b=e.target.closest('button[data-tab]');if(b)switchTab(b.dataset.tab)});$('gameScreen').addEventListener('click',e=>{let b=e.target.closest('[data-action]');if(b){let a=b.dataset.action;if(a==='noop'){toast('Theo dõi thu nhập, chi phí và tài sản trong bảng tài chính.');return;}applyAction(a);return;}let ch=e.target.closest('[data-choice]');if(ch)doChoice(ch.dataset.choice)});$('saveBtn').onclick=()=>{saveLocal();toast('Đã lưu tiến trình.')};$('exportBtn').onclick=exportSave;$('restartBtn').onclick=newLife;$('clearLogBtn').onclick=()=>{if(confirm('Xóa nhật ký hiển thị?')){g.log=[];renderHistory();saveLocal()}};$('howBtn').onclick=showHelp;let saved=localStorage.getItem('oneIn8billion_save_v1');if(saved){$('loadBtn').textContent='Tiếp tục game';}}
+init();
+</script>
 </body>
 </html>
